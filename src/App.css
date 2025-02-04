@@ -1,0 +1,35 @@
+#main-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2% auto;
+    width: 85%;
+    min-width: 800px;
+    height: 85%;
+}
+
+#input-container, #output-container {
+    width: 48%;
+    height: 100%;
+    border: 1px solid red;
+}
+
+#input-controls {
+    height: 5%;
+    min-height: 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 1%;
+    padding-right: 1%;
+}
+
+#input-controls > button {
+    height: 100%;
+    font-family: "Space Grotesk", serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-size: 1em;
+    background-color: inherit;
+    border: 1px solid black;
+}
