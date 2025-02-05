@@ -1,7 +1,5 @@
-export default function LanguageButton({clickFunction}) {
+export default function LanguageButton() {
     return (
-        <div id="input-controls">
-            <button onClick={clickFunction}>Run Javascript</button>
-        </div>
+        <button className="input-controls">Javascript</button>
     );
 }
