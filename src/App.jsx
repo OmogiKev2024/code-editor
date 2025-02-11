@@ -22,7 +22,7 @@ const PISTON_URL = "https://emkc.org/api/v2/piston/execute";
 export default function App() {
   const editorRef = useRef(null);
   const [ outputCode, setOutputCode ] = useState("");
-  const [ language, setLanguage ] = useState("Javascript")
+  const [ language, setLanguage ] = useState("javascript")
 
   function handleEditorDidMount(editor, monaco) {
     editorRef.current = editor;
@@ -55,14 +55,14 @@ export default function App() {
     <main id="main-container">
       <div id="input-container">
         <div id="input-controls">
-          <SelectLanguage languages={languages} />
+          <SelectLanguage languages={languages} languageChanger={setLanguage}/>
           <ThemeButton />
         </div>
         <div id="input-display">
           <Editor
           height="100%"
           width="100%"
-          language="javascript"
+          language={language}
           theme="vs-dark"
           onMount={handleEditorDidMount}
           />
