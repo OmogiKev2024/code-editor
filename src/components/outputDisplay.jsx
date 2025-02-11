@@ -1,5 +1,5 @@
-export default function OutputDisplay() {
+export default function OutputDisplay({ output }) {
     return (
-        <pre>Output</pre>
+        <p>{ output }</p>
     );
 }

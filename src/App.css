@@ -15,7 +15,9 @@
 
 #input-controls, #output-controls {
     height: 5%;
-    border: 1px solid red;
+    background-color: rgb(36, 34, 36);
+    color: aliceblue;
+    font-size: 90%;
 }
 
 #input-controls {
@@ -28,3 +30,21 @@
     height: 95%;
     border: 1px solid green;
 }
+
+.select-container, #languages {
+    background-color: inherit;
+    color: inherit;
+}
+
+#languages {
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+#languages:hover, #languages:active {
+    border: none;
+    box-shadow: 0 0 5px white;
+    outline: none;
+}
+
+

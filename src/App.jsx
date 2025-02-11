@@ -1,22 +1,53 @@
 import "./App.css"
 import Editor from "@monaco-editor/react"
-import LanguageButton from "./components/languageButton";
 import ThemeButton from "./components/themeButton";
 import RunButton from "./components/runButton";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import OutputDisplay from "./components/outputDisplay";
+import SelectLanguage from "./components/selectLanguage";
+
+const languages = {
+  "javascript": "18.15.0",
+  "python": "3.10.0",
+  "java": "15.0.2",
+  "typescript": "5.0.3",
+  "c++": "10.2.0",
+  "csharp.net": "5.0.201",
+  "c": "10.2.0"
+};
+
+const PISTON_URL = "https://emkc.org/api/v2/piston/execute";
 
 
 export default function App() {
   const editorRef = useRef(null);
+  const [ outputCode, setOutputCode ] = useState("");
+  const [ language, setLanguage ] = useState("Javascript")
 
   function handleEditorDidMount(editor, monaco) {
     editorRef.current = editor;
   }
 
-  function showValue(event) {
+  async function runCode(event) {
     event.preventDefault();
-    console.log(editorRef.current.getValue());
+    const result = await fetch(PISTON_URL, {
+      method: "POST",
+      body: JSON.stringify({
+        language: language,
+        version: languages.language,
+        files: [
+          {
+            content: editorRef.current.getValue()
+          }
+        ]
+      })
+    });
+    result.json()
+    .then(data => {
+      data.run.stdout ? setOutputCode(data.run.stdout) : setOutputCode(data.run.stderr);
+    })
+    .catch(error => console.log(error))
+
   }
 
 
@@ -24,7 +55,7 @@ export default function App() {
     <main id="main-container">
       <div id="input-container">
         <div id="input-controls">
-          <LanguageButton />
+          <SelectLanguage languages={languages} />
           <ThemeButton />
         </div>
         <div id="input-display">
@@ -39,10 +70,10 @@ export default function App() {
       </div>
       <div id="output-container">
         <div id="output-controls">
-          <RunButton runCode={showValue} />
+          <RunButton runCode={runCode} />
         </div>
         <div id="output-display">
-          <OutputDisplay />
+          <OutputDisplay output={outputCode} />
         </div>
       </div>
     </main>
